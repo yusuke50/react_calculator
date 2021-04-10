@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import './index.scss';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -27,16 +28,18 @@ function Operator(props) {
     case 'back':
       return (
         <button
+          type='button'
           className='btn btn-secondary w-100'
           value={props.value}
           onClick={props.onClick}
         >
-          <i className='fas fa-long-arrow-alt-left'></i>
+          <i className='fas fa-long-arrow-alt-left' />
         </button>
       );
     case 'C':
       return (
         <button
+          type='button'
           className='btn btn-secondary w-100'
           value={props.value}
           onClick={props.onClick}
@@ -47,36 +50,40 @@ function Operator(props) {
     case 'divide':
       return (
         <button
+          type='button'
           className='btn btn-secondary w-100'
           value={props.value}
           onClick={props.onClick}
         >
-          <i className='fas fa-divide'></i>
+          <i className='fas fa-divide' />
         </button>
       );
     case 'times':
       return (
         <button
+          type='button'
           className='btn btn-secondary w-100'
           value={props.value}
           onClick={props.onClick}
         >
-          <i className='fas fa-times'></i>
+          <i className='fas fa-times' />
         </button>
       );
     case 'minus':
       return (
         <button
+          type='button'
           className='btn btn-secondary w-100'
           value={props.value}
           onClick={props.onClick}
         >
-          <i className='fas fa-minus'></i>
+          <i className='fas fa-minus' />
         </button>
       );
     case '.':
       return (
         <button
+          type='button'
           className='btn btn-secondary w-100'
           value={props.value}
           onClick={props.onClick}
@@ -87,33 +94,33 @@ function Operator(props) {
     case 'equals':
       return (
         <button
+          type='button'
           className='btn btn-secondary w-100'
           value={props.value}
           onClick={props.onClick}
         >
-          <i className='fas fa-equals'></i>
+          <i className='fas fa-equals' />
         </button>
       );
     case 'plus':
       return (
         <button
+          type='button'
           className='btn btn-secondary w-100'
           value={props.value}
           onClick={props.onClick}
         >
-          <i className='fas fa-plus'></i>
+          <i className='fas fa-plus' />
         </button>
       );
 
     default:
       console.log(`Sorry, we are out of ${props.value}.`);
-      return <div></div>;
+      return <div />;
   }
 }
 
 function CalDiv(props) {
-  console.log(props);
-
   let str =
     typeof props.value[props.value.length - 1] === 'number'
       ? props.value[props.value.length - 1]
@@ -127,44 +134,43 @@ function CalDiv(props) {
 }
 
 class Btns extends React.Component {
-  renderSquare(i) {
+  renderSquare(i, cb) {
     if (typeof i === 'number') {
-      return <Num value={i} onClick={() => this.props.onClick(i)} />;
-    } else {
-      return <Operator value={i} onClick={() => this.props.onClick(i)} />;
+      return <Num value={i} onClick={cb} />;
     }
+    return <Operator value={i} onClick={cb} />;
   }
 
   render() {
     return (
       <div>
         <div className='row mb-4'>
-          <div className='col-6 text-center'>{this.renderSquare('back')}</div>
-          <div className='col-6 text-center'>{this.renderSquare('C')}</div>
+          <div className='col-6 text-center'>{this.renderSquare('back', () => this.props.onBack())}</div>
+          <div className='col-6 text-center'>{this.renderSquare('C', () => this.props.onClear())}</div>
         </div>
         <div className='row mb-4'>
-          <div className='col-3 text-center'>{this.renderSquare(7)}</div>
-          <div className='col-3 text-center'>{this.renderSquare(8)}</div>
-          <div className='col-3 text-center'>{this.renderSquare(9)}</div>
-          <div className='col-3 text-center'>{this.renderSquare('divide')}</div>
+          <div className='col-3 text-center'>{this.renderSquare(7, () => this.props.onNum(7))}</div>
+          <div className='col-3 text-center'>{this.renderSquare(8, () => this.props.onNum(8))}</div>
+          <div className='col-3 text-center'>{this.renderSquare(9, () => this.props.onNum(9))}</div>
+          <div className='col-3 text-center'>{this.renderSquare('divide', () => this.props.onDivide())}</div>
         </div>
         <div className='row mb-4'>
-          <div className='col-3 text-center'>{this.renderSquare(4)}</div>
-          <div className='col-3 text-center'>{this.renderSquare(5)}</div>
-          <div className='col-3 text-center'>{this.renderSquare(6)}</div>
-          <div className='col-3 text-center'>{this.renderSquare('times')}</div>
+          <div className='col-3 text-center'>{this.renderSquare(4, () => this.props.onNum(4))}</div>
+          <div className='col-3 text-center'>{this.renderSquare(5, () => this.props.onNum(5))}</div>
+          <div className='col-3 text-center'>{this.renderSquare(6, () => this.props.onNum(6))}</div>
+          <div className='col-3 text-center'>{this.renderSquare('times', () => this.props.onTimes())}</div>
         </div>
         <div className='row mb-4'>
-          <div className='col-3 text-center'>{this.renderSquare(1)}</div>
-          <div className='col-3 text-center'>{this.renderSquare(2)}</div>
-          <div className='col-3 text-center'>{this.renderSquare(3)}</div>
-          <div className='col-3 text-center'>{this.renderSquare('minus')}</div>
+          <div className='col-3 text-center'>{this.renderSquare(1, () => this.props.onNum(1))}</div>
+          <div className='col-3 text-center'>{this.renderSquare(2, () => this.props.onNum(2))}</div>
+          <div className='col-3 text-center'>{this.renderSquare(3, () => this.props.onNum(3))}</div>
+          <div className='col-3 text-center'>{this.renderSquare('minus', () => this.props.onMinus())}</div>
         </div>
         <div className='row mb-4'>
-          <div className='col-3 text-center'>{this.renderSquare(0)}</div>
-          <div className='col-3 text-center'>{this.renderSquare('.')}</div>
-          <div className='col-3 text-center'>{this.renderSquare('equals')}</div>
-          <div className='col-3 text-center'>{this.renderSquare('plus')}</div>
+          <div className='col-3 text-center'>{this.renderSquare(0, () => this.props.onNum(0))}</div>
+          <div className='col-3 text-center'>{this.renderSquare('.', () => this.props.onPoint())}</div>
+          <div className='col-3 text-center'>{this.renderSquare('equals', () => this.props.onEquals())}</div>
+          <div className='col-3 text-center'>{this.renderSquare('plus', () => this.props.onPlus())}</div>
         </div>
       </div>
     );
@@ -172,7 +178,7 @@ class Btns extends React.Component {
 }
 
 function calc(h: any) {
-  let [a, op, b] = h;
+  const [a, op, b] = h;
   let res;
   switch (op) {
     case '+':
@@ -198,86 +204,145 @@ class Main extends React.Component {
     super(props);
     this.state = {
       history: [0],
-      steps: [],
     };
+
+    this.onNum = this.onNum.bind(this);
+    this.onPoint = this.onPoint.bind(this);
+    this.onBack = this.onBack.bind(this);
+    this.onClear = this.onClear.bind(this);
+    this.onPlus = this.onPlus.bind(this);
+    this.onMinus = this.onMinus.bind(this);
+    this.onTimes = this.onTimes.bind(this);
+    this.onDivide = this.onDivide.bind(this);
+    this.onEquals = this.onEquals.bind(this);
   }
 
-  clickEvent(i) {
+  onNum(num) {
     let h = this.state.history.slice();
-
-    switch (i) {
-      case 'back':
-        h[h.length - 1] = Math.floor(h[h.length - 1] / 10);
-        break;
-      case 'C':
-        h = [0];
-        break;
-      case 'divide':
-        if (
-          h.indexOf('+') > -1 ||
-          h.indexOf('-') > -1 ||
-          h.indexOf('*') > -1 ||
-          h.indexOf('/') > -1
-        ) {
-          h = [calc(h)];
-        }
-        h[h.length] = '/';
-        break;
-      case 'times':
-        if (
-          h.indexOf('+') > -1 ||
-          h.indexOf('-') > -1 ||
-          h.indexOf('*') > -1 ||
-          h.indexOf('/') > -1
-        ) {
-          h = [calc(h)];
-        }
-        h[h.length] = '*';
-        break;
-      case 'minus':
-        if (
-          h.indexOf('+') > -1 ||
-          h.indexOf('-') > -1 ||
-          h.indexOf('*') > -1 ||
-          h.indexOf('/') > -1
-        ) {
-          h = [calc(h)];
-        }
-        h[h.length] = '-';
-        break;
-      case '.':
-        if (h[h.length - 1].toString().indexOf('.') < 0) {
-          h[h.length - 1] = `${h[h.length - 1]}.`;
-        }
-        break;
-      case 'equals':
-        h = [calc(h)];
-        break;
-      case 'plus':
-        if (
-          h.indexOf('+') > -1 ||
-          h.indexOf('-') > -1 ||
-          h.indexOf('*') > -1 ||
-          h.indexOf('/') > -1
-        ) {
-          h = [calc(h)];
-        }
-        h[h.length] = '+';
-        break;
-      default:
-        if (typeof h[h.length - 1] === 'number') {
-          h[h.length - 1] = h[h.length - 1] * 10 + i;
-        } else if (h[h.length - 1].indexOf('.') > -1) {
-          h[h.length - 1] = +`${h[h.length - 1]}${i}`;
-        } else {
-          h.push(i);
-        }
-        break;
+    if (typeof h[h.length - 1] === 'number') {
+      h[h.length - 1] = h[h.length - 1] * 10 + num;
+    } else if (h[h.length - 1].indexOf('.') > -1) {
+      h[h.length - 1] = +`${h[h.length - 1]}${num}`;
+    } else {
+      h.push(num);
     }
 
     this.setState({
       history: h,
-      step: history.length,
+    });
+  }
+
+  onPoint() {
+    let h = this.state.history.slice();
+
+    if (h[h.length - 1].toString().indexOf('.') < 0) {
+      h[h.length - 1] = `${h[h.length - 1]}.`;
+    }
+
+    this.setState({
+      history: h,
+    });
+  }
+
+  onBack() {
+    let h = this.state.history.slice();
+
+    h[h.length - 1] = Math.floor(h[h.length - 1] / 10);
+
+    this.setState({
+      history: h,
+    });
+  }
+
+  onClear() {
+    let h = this.state.history.slice();
+
+    h = [0];
+
+    this.setState({
+      history: h,
+    });
+  }
+
+  onPlus() {
+    let h = this.state.history.slice();
+
+    if (
+      h.indexOf('+') > -1
+      || h.indexOf('-') > -1
+      || h.indexOf('*') > -1
+      || h.indexOf('/') > -1
+    ) {
+      h = [calc(h)];
+    }
+    h[h.length] = '+';
+
+    this.setState({
+      history: h,
+    });
+  }
+
+  onMinus() {
+    let h = this.state.history.slice();
+
+    if (
+      h.indexOf('+') > -1
+      || h.indexOf('-') > -1
+      || h.indexOf('*') > -1
+      || h.indexOf('/') > -1
+    ) {
+      h = [calc(h)];
+    }
+    h[h.length] = '-';
+
+    this.setState({
+      history: h,
+    });
+  }
+
+  onTimes() {
+    let h = this.state.history.slice();
+
+    if (
+      h.indexOf('+') > -1
+      || h.indexOf('-') > -1
+      || h.indexOf('*') > -1
+      || h.indexOf('/') > -1
+    ) {
+      h = [calc(h)];
+    }
+    h[h.length] = '*';
+
+    this.setState({
+      history: h,
+    });
+  }
+
+  onDivide() {
+    let h = this.state.history.slice();
+
+    if (
+      h.indexOf('+') > -1
+      || h.indexOf('-') > -1
+      || h.indexOf('*') > -1
+      || h.indexOf('/') > -1
+    ) {
+      h = [calc(h)];
+    }
+    h[h.length] = '/';
+
+    this.setState({
+      history: h,
+    });
+  }
+
+  onEquals() {
+    let h = this.state.history.slice();
+
+    h = [calc(h)];
+
+    this.setState({
+      history: h,
     });
   }
 
@@ -289,12 +354,19 @@ class Main extends React.Component {
         <div className='row'>
           <div className='col-7'>
             <div className='row mb-4'>
-              <CalDiv value={history}></CalDiv>
+              <CalDiv value={history} />
             </div>
             <div className='btns'>
               <Btns
-                num={history.join('')}
-                onClick={(i) => this.clickEvent(i)}
+                onNum={this.onNum}
+                onPoint={this.onPoint}
+                onBack={this.onBack}
+                onClear={this.onClear}
+                onPlus={this.onPlus}
+                onMinus={this.onMinus}
+                onTimes={this.onTimes}
+                onDivide={this.onDivide}
+                onEquals={this.onEquals}
               />
             </div>
           </div>
